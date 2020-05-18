@@ -5,6 +5,6 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
 
 interface Listeners {
-    fun newUserRegistered(u: FirebaseUser?)
-    fun newItemInserted(task: Task<DocumentReference?>?)
+    fun newUserRegistered(u: FirebaseUser){}
+    fun newItemInserted(task: Task<DocumentReference>){}
 }
