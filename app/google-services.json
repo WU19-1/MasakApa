@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "186554165444",
+    "firebase_url": "https://masak-apa-se.firebaseio.com",
+    "project_id": "masak-apa-se",
+    "storage_bucket": "masak-apa-se.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:186554165444:android:326abedfb4fa0747870191",
+        "android_client_info": {
+          "package_name": "com.se.masakapa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "186554165444-p3bqudfnjsa99obhs48fb0g1i3nn0642.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.se.masakapa",
+            "certificate_hash": "c3d8f799d69fc701a3a5d416140f35d42ce68d88"
+          }
+        },
+        {
+          "client_id": "186554165444-v7p84d6k7oias8cmlrbi7luf6br1kg88.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAUPv_tbpL0Y0c2qcMahkBU-hmXvKQQzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "186554165444-v7p84d6k7oias8cmlrbi7luf6br1kg88.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
