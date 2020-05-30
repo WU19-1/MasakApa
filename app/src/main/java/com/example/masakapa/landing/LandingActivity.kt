@@ -1,13 +1,19 @@
 package com.example.masakapa.landing
 
+import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.viewpager.widget.ViewPager
 import com.example.masakapa.R
 import com.example.masakapa.adapter.LandingAdapter
+import com.example.masakapa.home.HomeActivity
+import com.example.masakapa.login.Login
+import com.example.masakapa.register.Register
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_landing.*
 
 class LandingActivity : AppCompatActivity(),
@@ -22,6 +28,15 @@ class LandingActivity : AppCompatActivity(),
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing)
+
+        var mAuth = FirebaseAuth.getInstance().currentUser
+        if(mAuth != null){
+            var i = Intent(this@LandingActivity, HomeActivity::class.java)
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(i)
+        }
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         landing_pager.adapter = LandingAdapter(supportFragmentManager)
 
@@ -60,7 +75,8 @@ class LandingActivity : AppCompatActivity(),
 
         login_landing.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                var i = Intent(applicationContext, Login::class.java)
+                startActivity(i)
             }
         })
 
@@ -72,7 +88,8 @@ class LandingActivity : AppCompatActivity(),
 
         sign_up_landing.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                var i = Intent(applicationContext, Register::class.java)
+                startActivity(i)
             }
         })
     }

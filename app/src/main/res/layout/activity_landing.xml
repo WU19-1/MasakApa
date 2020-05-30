@@ -8,6 +8,7 @@
     android:orientation="vertical"
     android:weightSum="2"
     android:background="@android:color/white"
+    android:fitsSystemWindows="true"
     >
 
     <androidx.cardview.widget.CardView
@@ -100,6 +101,8 @@
         android:orientation="vertical"
         android:background="@android:color/white"
         android:layout_weight="0.57"
+        android:layout_marginHorizontal="4dp"
+        android:layout_marginBottom="20dp"
         >
 
         <Button
@@ -161,6 +164,7 @@
                 android:layout_gravity="center"
                 android:layout_marginRight="16dp"
                 />
+
 
         </LinearLayout>
 

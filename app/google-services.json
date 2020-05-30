@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "82605202660",
+    "firebase_url": "https://masakapa-3bfe9.firebaseio.com",
+    "project_id": "masakapa-3bfe9",
+    "storage_bucket": "masakapa-3bfe9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82605202660:android:fa3f5300c91c5d2c52e0f1",
+        "android_client_info": {
+          "package_name": "com.example.masakapa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82605202660-oed9fsdrprlotcndeqahesa88s8ht7vk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIanEVeNAZdQ2Uss1c2ySSlIUYmNezd6w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82605202660-oed9fsdrprlotcndeqahesa88s8ht7vk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,11 +9,31 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".landing.LandingActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            >
+        <activity android:name=".home.HomeActivity"></activity>
+        <activity
+            android:name=".payment.PaymentActivity"
+            android:theme="@style/AppTheme.TransparentTheme"></activity>
+        <activity
+            android:name=".forgotpw.ForgotPassword"
+            android:theme="@style/AppTheme.TransparentTheme" />
+        <activity
+            android:name=".subscription.Subscription"
+            android:theme="@style/AppTheme.TransparentTheme" />
+        <activity
+            android:name=".register.Register"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.TransparentTheme" />
+        <activity
+            android:name=".login.Login"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.TransparentTheme" />
+        <activity
+            android:name=".landing.LandingActivity"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.TransparentTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

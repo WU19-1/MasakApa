@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="Telusuri"
             android:textAlignment="center"
-            android:textSize="20dp"
+            android:textSize="24dp"
             android:textColor="@android:color/white"
             android:textStyle="bold"
             android:padding="8dp"
