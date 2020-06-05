@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "82605202660-cb5eoiengp2bkncmgrfj38afvp6a1ihs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.masakapa",
+            "certificate_hash": "353bf2192c1b2a13cd69b8a1985a150908ca8885"
+          }
+        },
+        {
           "client_id": "82605202660-oed9fsdrprlotcndeqahesa88s8ht7vk.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -1,14 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.fragments.ForumFragment">
+    tools:context=".home.fragments.ForumFragment"
+    android:background="@drawable/forum_bg"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Forum" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
 
-</FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Forum"
+            android:fontFamily="@font/title"
+            android:textColor="@android:color/white"
+            android:textSize="48sp"
+            android:textStyle="bold|italic"
+            android:layout_marginHorizontal="35dp"
+            android:layout_marginVertical="6dp"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_field"
+            android:layout_marginHorizontal="35dp"
+            android:paddingVertical="10dp"
+            android:drawableRight="@drawable/ic_search_grey_24dp"
+            android:hint="Search forum..."
+            android:padding="8dp"
+            android:shadowColor="#7D000000"
+            />
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="35dp"
+            android:backgroundTint="@android:color/white"
+            android:layout_marginVertical="18dp"
+            android:entries="@array/forum_filter"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/forum_recycler"
+                />
+        </ScrollView>
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:backgroundTint="#FFA239"
+        android:src="@drawable/ic_add_white_24dp"
+        android:id="@+id/forum_new_forum"
+        />
+
+</RelativeLayout>

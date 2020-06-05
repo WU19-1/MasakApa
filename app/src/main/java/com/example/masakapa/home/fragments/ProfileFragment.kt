@@ -1,14 +1,21 @@
 package com.example.masakapa.home.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 
 import com.example.masakapa.R
+import com.example.masakapa.landing.LandingActivity
+import com.example.masakapa.model.User
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.fragment_profile.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,12 +44,44 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    var user : User? = null
+    lateinit var mAuth : FirebaseAuth
+    lateinit var db : FirebaseFirestore
+
+    fun updateUIProfile(){
+        if(user == null){
+            db.collection("users").document(mAuth.currentUser!!.uid).get().addOnSuccessListener{
+                user = it.toObject(User::class.java)
+                profile_name.text = user!!.FullName
+                profile_status.text = user!!.Status
+                profile_email.text = user!!.Email
+            }
+        }else{
+            profile_name.text = user!!.FullName
+            profile_status.text = user!!.Status
+            profile_email.text = user!!.Email
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        var view = inflater.inflate(R.layout.fragment_profile, container, false)
+        mAuth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+        updateUIProfile()
+
+        view.findViewById<LinearLayout>(R.id.profile_logout).setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                FirebaseAuth.getInstance().signOut()
+                activity!!.finish()
+                startActivity(Intent(activity,LandingActivity::class.java))
+            }
+        })
+
+        return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import androidx.viewpager.widget.ViewPager
@@ -12,8 +13,14 @@ import com.example.masakapa.R
 import com.example.masakapa.adapter.LandingAdapter
 import com.example.masakapa.home.HomeActivity
 import com.example.masakapa.login.Login
+import com.example.masakapa.model.User
 import com.example.masakapa.register.Register
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.activity_landing.*
 
 class LandingActivity : AppCompatActivity(),
@@ -34,6 +41,7 @@ class LandingActivity : AppCompatActivity(),
             var i = Intent(this@LandingActivity, HomeActivity::class.java)
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(i)
+            finish()
         }
 
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
@@ -82,7 +90,7 @@ class LandingActivity : AppCompatActivity(),
 
         sign_in_with_google.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
             }
         })
 

@@ -11,11 +11,13 @@ import androidx.fragment.app.Fragment
 import com.example.masakapa.R
 import com.example.masakapa.home.fragments.*
 import com.example.masakapa.model.User
+import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.lang.Exception
 
 class HomeActivity : AppCompatActivity(),
     HomeFragment.OnFragmentInteractionListener,
@@ -27,6 +29,7 @@ class HomeActivity : AppCompatActivity(),
 
     lateinit var mAuth : FirebaseAuth
     lateinit var db : FirebaseFirestore
+    var user : User? = null
 
     override fun onFragmentInteraction(uri: Uri) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -39,12 +42,19 @@ class HomeActivity : AppCompatActivity(),
         t.commit()
     }
 
-    fun updateUI(){
-        var user : User? = null
-        db.collection("users").document(mAuth.currentUser!!.uid).get().addOnSuccessListener {
-            if(user == null){
+    fun updateUIHome(){
+        if(user == null){
+            db.collection("users").document(mAuth.currentUser!!.uid).get().addOnSuccessListener{
                 user = it.toObject(User::class.java)
-            }
+                home_name.text = user!!.FullName
+                home_status.text = user!!.Status
+            }.addOnFailureListener(object : OnFailureListener{
+                override fun onFailure(p0: Exception) {
+                    Log.e("firestore error", p0.message.toString())
+                    Toast.makeText(this@HomeActivity,p0.message,Toast.LENGTH_LONG).show()
+                }
+            })
+        }else{
             home_name.text = user!!.FullName
             home_status.text = user!!.Status
         }
@@ -56,19 +66,19 @@ class HomeActivity : AppCompatActivity(),
 
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
-        home_container.layoutParams.width = applicationContext.resources.displayMetrics.heightPixels - bottom_navigation.layoutParams.height
-
-        bottom_navigation.selectedItemId = R.id.navigation_home
+        openFragment(HomeFragment.newInstance("",""))
 
         mAuth = FirebaseAuth.getInstance()
         db = FirebaseFirestore.getInstance()
+
+        updateUIHome()
 
         bottom_navigation.setOnNavigationItemSelectedListener(object : BottomNavigationView.OnNavigationItemSelectedListener{
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when(item.itemId){
                     R.id.navigation_home -> {
                         openFragment(HomeFragment.newInstance("",""))
-                        updateUI()
+                        updateUIHome()
                         return true
                     }
                     R.id.navigation_forum -> {
@@ -90,7 +100,6 @@ class HomeActivity : AppCompatActivity(),
                 }
                 return false
             }
-
         })
     }
 }

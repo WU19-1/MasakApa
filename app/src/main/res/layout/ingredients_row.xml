@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:weightSum="4"
+    >
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/create_ingredient_checkbox"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:text="Nama ingredient"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:id="@+id/create_ingredient_name"
+        android:layout_weight="2.4"
+        />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:hint="Quantity"
+        android:gravity="center_vertical"
+        android:id="@+id/create_ingredient_input_layout"
+        android:layout_marginRight="12dp"
+        android:layout_weight="1.6"
+        >
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/create_ingredient_qty"
+            android:layout_marginLeft="12dp"
+            android:gravity="center_vertical|left"
+            android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:inputType="number"
+            android:maxLength="5"
+            />
+    </com.google.android.material.textfield.TextInputLayout>
+
+</LinearLayout>

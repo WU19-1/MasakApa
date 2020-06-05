@@ -2,10 +2,8 @@ package com.example.masakapa.register
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
@@ -18,16 +16,12 @@ import com.example.masakapa.R
 import com.example.masakapa.login.Login
 import com.example.masakapa.model.User
 import com.example.masakapa.subscription.Subscription
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_register.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.HashMap
 
 
 class Register : AppCompatActivity() {
@@ -197,7 +191,7 @@ class Register : AppCompatActivity() {
                             //daftarin info ke database
                             id = mAuth.currentUser!!.uid
                             var u = User()
-                            u.UserID = id
+                            u.UID = id
                             u.Email = email
                             u.DOB = dob
                             u.FullName = full_name
@@ -208,7 +202,7 @@ class Register : AppCompatActivity() {
                                 .document(id)
                                 .set(
                                     hashMapOf(
-                                        "UserID" to u.UserID,
+                                        "UserID" to u.UID,
                                         "Email" to u.Email,
                                         "FullName" to u.FullName,
                                         "DOB" to u.DOB,

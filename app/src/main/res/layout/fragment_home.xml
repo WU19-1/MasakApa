@@ -81,7 +81,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Nama disini"
+                            android:text="John Doe"
                             android:textStyle="bold"
                             android:textSize="20dp"
                             android:textColor="@android:color/black"
@@ -96,16 +96,141 @@
                             android:textSize="16dp"
                             />
 
-
                     </LinearLayout>
 
-
                 </LinearLayout>
-
-
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:cardCornerRadius="30dp"
+        android:layout_marginTop="-14dp"
+        android:background="@android:color/holo_red_dark"
+        android:layout_marginHorizontal="30dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            >
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:id="@+id/home_racik"
+                    >
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/kitchen"
+                        android:layout_gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Racik"
+                        android:textColor="@android:color/black"
+                        android:textAlignment="center"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:id="@+id/home_resep"
+                    >
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/recipes"
+                        android:layout_gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Resep"
+                        android:textColor="@android:color/black"
+                        android:textAlignment="center"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:id="@+id/home_favorit"
+                    >
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/favorit"
+                        android:layout_gravity="center"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Favorit"
+                        android:textColor="@android:color/black"
+                        android:textAlignment="center"
+                        />
+                </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Top picks for you"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="3dp"
+        android:textColor="@android:color/black"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingHorizontal="12dp"
+        >
+    </LinearLayout>
+
+
 
 </LinearLayout>

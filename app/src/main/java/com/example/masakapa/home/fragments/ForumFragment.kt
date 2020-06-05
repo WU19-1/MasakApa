@@ -1,14 +1,28 @@
 package com.example.masakapa.home.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.masakapa.R
+import com.example.masakapa.adapter.ForumAdapter
+import com.example.masakapa.forum.NewForum
+import com.example.masakapa.model.Forum
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.fragment_forum.*
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,12 +51,44 @@ class ForumFragment : Fragment() {
         }
     }
 
+    lateinit var db : FirebaseFirestore
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_forum, container, false)
+        var view = inflater.inflate(R.layout.fragment_forum, container, false)
+        var list : Vector<Forum> = Vector()
+        db = FirebaseFirestore.getInstance()
+
+
+        var forum_rc = view.findViewById<RecyclerView>(R.id.forum_recycler)
+        forum_rc.layoutManager = LinearLayoutManager(this@ForumFragment.activity!!)
+        var adapter = ForumAdapter(list,this@ForumFragment.context!!,this.activity!!.windowManager)
+        forum_rc.adapter = adapter
+
+        view.findViewById<FloatingActionButton>(R.id.forum_new_forum).setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                var i = Intent(this@ForumFragment.context,NewForum::class.java)
+                startActivity(i)
+            }
+        })
+
+        db.collection("forums").get().addOnSuccessListener {
+
+            for (q in it){
+                list.add(q.toObject(Forum::class.java))
+            }
+            var adapter = ForumAdapter(list,this@ForumFragment.context!!,this.activity!!.windowManager)
+
+            forum_rc.adapter = adapter
+
+        }.addOnFailureListener{
+            Toast.makeText(this@ForumFragment.context!!,"Error , " + it.message, Toast.LENGTH_LONG).show()
+        }
+
+        return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#FFCD89"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/example_food"
+            android:layout_margin="10dp"
+            android:id="@+id/history_food_image"
+            />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama makanan"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:layout_centerVertical="true"
+                    android:id="@+id/history_makanan_id"
+                    />
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:src="@drawable/love"
+                    android:layout_toLeftOf="@+id/history_total_likes"
+                    android:layout_centerVertical="true"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="textEnd"
+                    android:text="0"
+                    android:textColor="@android:color/black"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/history_total_likes"
+                    android:layout_centerVertical="true"
+                    />
+
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/history_food_description"
+                android:layout_marginTop="2dp"
+                android:text="Ini description dari makanan yang ditampilkan"
+                android:textSize="12sp"
+                android:textColor="@android:color/black"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
