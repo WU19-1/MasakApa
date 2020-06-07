@@ -96,7 +96,7 @@
             <ImageView
                 android:layout_width="72dp"
                 android:layout_height="match_parent"
-                android:visibility="visible"
+                android:visibility="invisible"
                 android:src="@drawable/member_logo_crown"
                 android:adjustViewBounds="true"
                 />

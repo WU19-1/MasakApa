@@ -2,13 +2,24 @@ package com.example.masakapa.home.fragments
 
 import android.content.Context
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import com.example.masakapa.R
+import com.example.masakapa.adapter.ExtendableAdapter
+import com.example.masakapa.model.Ingredient
+import com.example.masakapa.model.Recipe
+import com.google.firebase.firestore.FirebaseFirestore
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,12 +48,75 @@ class HistoryFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_history, container, false)
+        var view = inflater.inflate(R.layout.fragment_history, container, false)
+
+        var title = view.findViewById<TextView>(R.id.extends_title)
+
+        var vector : Vector<Recipe> = Vector()
+
+        var db = FirebaseFirestore.getInstance().collection("recipes")
+
+        var extend_container = view.findViewById<RecyclerView>(R.id.history_container)
+        extend_container.layoutManager = LinearLayoutManager(this@HistoryFragment.context)
+        var adapter = ExtendableAdapter(vector,this@HistoryFragment.activity!!,this@HistoryFragment.activity!!.windowManager)
+        extend_container.adapter  = adapter
+
+        var b = arguments
+        var found = true
+        if(b != null){
+            if(b.getString("tags").equals("Recipe")){
+                title.text = "Recipe"
+                db.get().addOnSuccessListener{
+                    for (i in it){
+                        vector.add(i.toObject(Recipe::class.java))
+                    }
+                    adapter.notifyDataSetChanged()
+                }
+            }else if(b.getString("tags").equals("Favorite")){
+                //tampilin favorit
+                title.text = "Favorite"
+            }else if(b.getString("tags").equals("Search")){
+                title.text = "Search"
+                db.get().addOnSuccessListener {
+                    for (i in it){
+                        found = true
+                        var curr = i.toObject(Recipe::class.java)
+                        var s = b.getString("result")!!.split(",")
+                        for(i in s){
+                            var temp = false
+                            for(q in curr.Ingredients!!){
+                                if(q.value.Name!!.equals(i)){
+                                    temp = true
+                                    break
+                                }
+                            }
+                            if(!temp && found){
+                                found = false
+                                break
+                            }
+                        }
+                        if(found){
+                            vector.add(curr)
+                        }
+                    }
+                    vector.forEach {
+                        Log.e("vector",it.RecipeName)
+                    }
+                    adapter = ExtendableAdapter(vector,this@HistoryFragment.activity!!,this@HistoryFragment.activity!!.windowManager)
+                    extend_container.adapter  = adapter
+                }
+            }
+        }else{
+            //tampilin history biasa
+            title.text = "History"
+        }
+
+        return view
     }
 
     // TODO: Rename method, update argument and hook method into UI event

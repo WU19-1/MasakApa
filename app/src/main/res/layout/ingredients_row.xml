@@ -18,34 +18,36 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:padding="12dp"
+        android:paddingHorizontal="12dp"
         android:text="Nama ingredient"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:id="@+id/create_ingredient_name"
-        android:layout_weight="2.4"
+        android:layout_weight="2.2"
         />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:hint="Quantity"
+        android:hint="Qty"
         android:gravity="center_vertical"
         android:id="@+id/create_ingredient_input_layout"
         android:layout_marginRight="12dp"
-        android:layout_weight="1.6"
+        android:layout_weight="1.8"
+        android:layout_marginVertical="4dp"
         >
-        <com.google.android.material.textfield.TextInputEditText
+        <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/create_ingredient_qty"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="10dp"
             android:gravity="center_vertical|left"
             android:layout_gravity="center_vertical"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:inputType="number"
-            android:maxLength="5"
+            android:maxLength="6"
+            android:enabled="false"
             />
     </com.google.android.material.textfield.TextInputLayout>
 

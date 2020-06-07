@@ -30,6 +30,7 @@
             android:textSize="48dp"
             android:textAlignment="center"
             android:fontFamily="@font/title"
+            android:id="@+id/extends_title"
             />
 
         <androidx.recyclerview.widget.RecyclerView

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.masakapa">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -11,9 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".forum.NewForum"></activity>
+        <activity android:name=".recipe.RecipeDetail"></activity>
+        <activity android:name=".search.SearchActivity" />
+        <activity android:name=".forum.NewForum" />
         <activity android:name=".forum.DetailForum" />
-        <activity android:name=".home.HomeActivity" />
+        <activity
+            android:name=".home.HomeActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".payment.PaymentActivity"
             android:theme="@style/AppTheme.TransparentTheme" />

@@ -14,12 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:orientation="horizontal"
+        android:id="@+id/history_container_view"
         >
 
         <ImageView
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/example_food"
             android:layout_margin="10dp"
             android:id="@+id/history_food_image"
             />
@@ -43,7 +43,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
                     android:layout_centerVertical="true"
-                    android:id="@+id/history_makanan_id"
+                    android:id="@+id/history_food_name"
                     />
 
                 <ImageView

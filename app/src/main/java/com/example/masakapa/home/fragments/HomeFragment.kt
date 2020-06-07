@@ -1,6 +1,8 @@
 package com.example.masakapa.home.fragments
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -8,13 +10,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 
 import com.example.masakapa.R
 import com.example.masakapa.model.User
+import com.example.masakapa.search.SearchActivity
+import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.w3c.dom.Text
+import java.lang.Exception
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,6 +52,24 @@ class HomeFragment : Fragment() {
         }
     }
 
+    var db = FirebaseFirestore.getInstance()
+    var mAuth = FirebaseAuth.getInstance()
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if(requestCode == 1 && data != null){
+            Log.e("masuk","true")
+            var t = this@HomeFragment.activity!!.supportFragmentManager.beginTransaction()
+            var frag = HistoryFragment.newInstance("","")
+            var b = Bundle()
+            b.putString("tags","Search")
+            b.putString("result",data.extras!!.getString("result"))
+            frag.arguments = b
+            t.replace(R.id.home_container,frag)
+            t.addToBackStack(null)
+            t.commit()
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +77,64 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         var view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        var name = view.findViewById<TextView>(R.id.home_name)
+        var desc = view.findViewById<TextView>(R.id.home_status)
+
+        var user : User? = null
+
+        db.collection("users").document(mAuth.currentUser!!.uid).get().addOnSuccessListener{
+            user = it.toObject(User::class.java)
+            home_name.text = user!!.FullName
+            home_status.text = user!!.Status
+        }.addOnFailureListener(object : OnFailureListener {
+            override fun onFailure(p0: Exception) {
+                Log.e("firestore error", p0.message.toString())
+                Toast.makeText(this@HomeFragment.context,p0.message, Toast.LENGTH_LONG).show()
+            }
+        })
+
+
+        var racik = view.findViewById<LinearLayout>(R.id.home_racik)
+
+        var activity_view = this.activity!!.findViewById<FrameLayout>(R.id.home_container)
+
+        racik.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                startActivityForResult(Intent(this@HomeFragment.context,SearchActivity::class.java),1)
+            }
+        })
+
+        var recipe = view.findViewById<LinearLayout>(R.id.home_resep)
+
+        var fav = view.findViewById<LinearLayout>(R.id.home_favorit)
+
+        fav.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                var t = this@HomeFragment.activity!!.supportFragmentManager.beginTransaction()
+                var frag = HistoryFragment.newInstance("","")
+                var b = Bundle()
+                b.putString("tags","Favorite")
+                frag.arguments = b
+                t.replace(R.id.home_container,frag)
+                t.addToBackStack(null)
+                t.commit()
+            }
+
+        })
+
+        recipe.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(p0: View?) {
+                var t = this@HomeFragment.activity!!.supportFragmentManager.beginTransaction()
+                var frag = HistoryFragment.newInstance("","")
+                var b = Bundle()
+                b.putString("tags","Recipe")
+                frag.arguments = b
+                t.replace(R.id.home_container,frag)
+                t.addToBackStack(null)
+                t.commit()
+            }
+        })
 
         return view
     }

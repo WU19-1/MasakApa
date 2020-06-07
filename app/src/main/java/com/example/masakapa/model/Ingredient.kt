@@ -7,7 +7,8 @@ class Ingredient (
     var IngredientID : String? = "",
     var Name : String? = "",
     var Unit : String? = "",
-    var Qty : String? = ""
+    var Qty : String? = "",
+    var position : Int? = 0
 ){
 
 }
