@@ -18,6 +18,7 @@ import com.example.masakapa.model.Like
 import com.example.masakapa.model.Recipe
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_recipe_detail.*
 import java.lang.Exception
@@ -42,24 +43,36 @@ class RecipeDetail : AppCompatActivity() {
         var h : History? = null
         var calendar = Calendar.getInstance()
 
-        FirebaseFirestore.getInstance().collection("history").document(id!!).get().addOnSuccessListener{
+        FirebaseFirestore.getInstance().collection("history").document(
+            FirebaseAuth.getInstance().currentUser!!.uid
+        ).get().addOnSuccessListener{
             if(it.exists()){
                 h = it.toObject(History::class.java)
-                var time = h!!.history!!.getOrDefault(id!!,"")
-                h!!.history!!.set(id!!,"${calendar.get(Calendar.DAY_OF_MONTH)}-" +
-                        "${calendar.get(Calendar.MONTH)}-${calendar.get(Calendar.YEAR)}," +
-                        "${calendar.get(Calendar.HOUR)}:${calendar.get(Calendar.MINUTE)}")
-                FirebaseFirestore.getInstance().collection("history").document(id!!).set(
+                var time = h!!.history!!.getOrDefault(FirebaseAuth.getInstance().currentUser!!.uid,"")
+                if(time.isEmpty()){
+                    h!!.history!!.put(id!!,"${calendar.get(Calendar.DAY_OF_MONTH)}-" +
+                            "${calendar.get(Calendar.MONTH)}-${calendar.get(Calendar.YEAR)}," +
+                            "${calendar.get(Calendar.HOUR)}:${calendar.get(Calendar.MINUTE)}")
+                }else{
+                    h!!.history!!.set(id!!,"${calendar.get(Calendar.DAY_OF_MONTH)}-" +
+                            "${calendar.get(Calendar.MONTH)}-${calendar.get(Calendar.YEAR)}," +
+                            "${calendar.get(Calendar.HOUR)}:${calendar.get(Calendar.MINUTE)}")
+                }
+                FirebaseFirestore.getInstance().collection("history").document(
+                    FirebaseAuth.getInstance().currentUser!!.uid
+                ).set(
                     h!!
                 )
-            }else{
+            }else if (!it.exists()){
                 h = History()
                 h!!.history = hashMapOf(
                     id!! to "${calendar.get(Calendar.DAY_OF_MONTH)}-" +
                             "${calendar.get(Calendar.MONTH)}-${calendar.get(Calendar.YEAR)}," +
                             "${calendar.get(Calendar.HOUR)}:${calendar.get(Calendar.MINUTE)}"
                 )
-                FirebaseFirestore.getInstance().collection("history").document(id!!).set(
+                FirebaseFirestore.getInstance().collection("history").document(
+                    FirebaseAuth.getInstance().currentUser!!.uid
+                ).set(
                     h!!
                 )
             }

@@ -46,6 +46,9 @@ class HomeActivity : AppCompatActivity(),
 
     fun openFragment(fragment : Fragment,tag : String){
         var t = supportFragmentManager.beginTransaction()
+        var b = Bundle()
+        b.putString("tags",tag)
+        fragment.arguments = b
         t.replace(R.id.home_container,fragment)
         t.addToBackStack(null)
         t.commit()

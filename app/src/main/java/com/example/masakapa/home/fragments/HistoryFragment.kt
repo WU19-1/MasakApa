@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.masakapa.R
 import com.example.masakapa.adapter.ExtendableAdapter
 import com.example.masakapa.model.Favorite
+import com.example.masakapa.model.History
 import com.example.masakapa.model.Ingredient
 import com.example.masakapa.model.Recipe
 import com.google.firebase.auth.FirebaseAuth
@@ -132,10 +133,27 @@ class HistoryFragment : Fragment() {
                     adapter = ExtendableAdapter(vector,this@HistoryFragment.activity!!,this@HistoryFragment.activity!!.windowManager)
                     extend_container.adapter  = adapter
                 }
+            }else if(b.getString("tags").equals("History")){
+                //tampilin history biasa
+                Log.e("masuk","true")
+                title.text = "History"
+                FirebaseFirestore.getInstance().collection("history").document(
+                    FirebaseAuth.getInstance().currentUser!!.uid
+                ).get().addOnSuccessListener {
+                    Log.e("masuk","true")
+                    var h = it.toObject(History::class.java)
+                    Log.e(h.toString(),"exists")
+                    for(i in h!!.history!!){
+                        var r : Recipe? = null
+                        db.document(i.key).get().addOnSuccessListener{
+                            r = it.toObject(Recipe::class.java)
+                            Log.e("r",r!!.RecipeID)
+                            vector.add(r!!)
+                            adapter.notifyDataSetChanged()
+                        }
+                    }
+                }
             }
-        }else{
-            //tampilin history biasa
-            title.text = "History"
         }
 
         return view
