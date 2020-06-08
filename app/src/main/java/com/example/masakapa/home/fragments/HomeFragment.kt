@@ -3,6 +3,7 @@ package com.example.masakapa.home.fragments
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -10,20 +11,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.cardview.widget.CardView
 
 import com.example.masakapa.R
+import com.example.masakapa.model.Recipe
 import com.example.masakapa.model.User
+import com.example.masakapa.recipe.RecipeDetail
 import com.example.masakapa.search.SearchActivity
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.w3c.dom.Text
 import java.lang.Exception
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -108,6 +111,34 @@ class HomeFragment : Fragment() {
         var recipe = view.findViewById<LinearLayout>(R.id.home_resep)
 
         var fav = view.findViewById<LinearLayout>(R.id.home_favorit)
+
+        var rec_con = view.findViewById<CardView>(R.id.home_recommend_container)
+
+        var title = view.findViewById<TextView>(R.id.home_recommend_title)
+
+        var imave = view.findViewById<ImageView>(R.id.home_recommend_image)
+
+        FirebaseFirestore.getInstance().collection("recipes").get().addOnSuccessListener{
+            var v = Vector<Recipe>()
+            for (i in it){
+                v.add(i.toObject(Recipe::class.java))
+            }
+            var r = v.get((Math.random()*v.size).toInt())
+            title.text = r.RecipeName
+            FirebaseStorage.getInstance().reference.child(r.RecipeImage!!).getBytes(8096*8096)
+                .addOnSuccessListener {
+                    var b = BitmapFactory.decodeByteArray(it,0,it.size)
+                    imave.setImageBitmap(b)
+                }
+            rec_con.setOnClickListener(object : View.OnClickListener{
+                override fun onClick(p0: View?) {
+                    var i = Intent(this@HomeFragment.context, RecipeDetail::class.java)
+                    i.putExtra("rid",r.RecipeID)
+                    startActivity(i)
+                }
+
+            })
+        }
 
         fav.setOnClickListener(object : View.OnClickListener{
             override fun onClick(p0: View?) {

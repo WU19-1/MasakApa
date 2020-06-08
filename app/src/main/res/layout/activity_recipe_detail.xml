@@ -71,13 +71,15 @@
                         android:text="Like"
                         android:layout_marginRight="4dp"
                         android:drawableLeft="@drawable/like"
+                        android:id="@+id/detail_like_btn"
                         />
 
                     <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Favorite"
+                        android:text="Fave"
                         android:drawableLeft="@drawable/ic_add_white_24dp"
+                        android:id="@+id/detail_fav_btn"
                         />
 
                 </LinearLayout>

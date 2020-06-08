@@ -124,28 +124,30 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 >
+
                 <LinearLayout
+                    android:id="@+id/home_racik"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="0dp"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_centerInParent="true"
                     android:gravity="center"
-                    android:id="@+id/home_racik"
-                    >
+                    android:orientation="vertical">
+
                     <ImageView
                         android:layout_width="36dp"
                         android:layout_height="36dp"
-                        android:src="@drawable/kitchen"
                         android:layout_gravity="center"
-                        />
+                        android:src="@drawable/kitchen" />
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Racik"
-                        android:textColor="@android:color/black"
                         android:textAlignment="center"
-                        />
+                        android:textColor="@android:color/black" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -217,10 +219,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Top picks for you"
+        android:text="Top picks for you today"
         android:paddingHorizontal="12dp"
         android:paddingVertical="3dp"
         android:textColor="@android:color/black"
+        android:layout_marginTop="12dp"
         />
 
     <LinearLayout
@@ -229,6 +232,46 @@
         android:orientation="horizontal"
         android:paddingHorizontal="12dp"
         >
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="30dp"
+            android:background="@android:color/white"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="12dp"
+            android:id="@+id/home_recommend_container"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="320dp"
+                    android:src="@drawable/example_food"
+                    android:adjustViewBounds="true"
+                    android:layout_gravity="center"
+                    android:id="@+id/home_recommend_image"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingVertical="12dp"
+                    android:text="Name of recipe"
+                    android:paddingHorizontal="7dp"
+                    android:textColor="@android:color/black"
+                    android:id="@+id/home_recommend_title"
+                    android:layout_marginHorizontal="12dp"
+                    />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
 

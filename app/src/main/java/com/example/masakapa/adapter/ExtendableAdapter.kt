@@ -38,6 +38,7 @@ class ExtendableAdapter (val list : Vector<Recipe>, var ctx : Activity, var mana
         var curr = list.get(position)
         holder.food_desc.text = curr.RecipeDesc
         holder.food_name.text = curr.RecipeName
+        holder.likes.text = curr.TotalLikes.toString()
         FirebaseStorage.getInstance().reference.child(curr!!.RecipeImage!!).getBytes(8096*8096)
             .addOnSuccessListener {
                 var bitmap = BitmapFactory.decodeByteArray(it,0,it.size)

@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.example.masakapa.R
 import com.example.masakapa.adapter.ExtendableAdapter
+import com.example.masakapa.model.Favorite
 import com.example.masakapa.model.Ingredient
 import com.example.masakapa.model.Recipe
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
@@ -47,6 +49,8 @@ class HistoryFragment : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
+    var vector : Vector<Recipe> = Vector()
+    lateinit var adapter : ExtendableAdapter
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
@@ -57,13 +61,13 @@ class HistoryFragment : Fragment() {
 
         var title = view.findViewById<TextView>(R.id.extends_title)
 
-        var vector : Vector<Recipe> = Vector()
 
         var db = FirebaseFirestore.getInstance().collection("recipes")
 
         var extend_container = view.findViewById<RecyclerView>(R.id.history_container)
         extend_container.layoutManager = LinearLayoutManager(this@HistoryFragment.context)
-        var adapter = ExtendableAdapter(vector,this@HistoryFragment.activity!!,this@HistoryFragment.activity!!.windowManager)
+
+        adapter = ExtendableAdapter(vector,this@HistoryFragment.activity!!,this@HistoryFragment.activity!!.windowManager)
         extend_container.adapter  = adapter
 
         var b = arguments
@@ -80,6 +84,24 @@ class HistoryFragment : Fragment() {
             }else if(b.getString("tags").equals("Favorite")){
                 //tampilin favorit
                 title.text = "Favorite"
+                FirebaseFirestore.getInstance().collection("favorite").document(
+                    FirebaseAuth.getInstance().currentUser!!.uid
+                ).get().addOnSuccessListener {
+                    if(it.exists()){
+                        var temp = it.toObject(Favorite::class.java)
+                        if(temp!!.fav != null){
+                            for(i in temp!!.fav!!.iterator()){
+                                var r : Recipe? = null
+                                db.document(i).get().addOnSuccessListener{
+                                    r = it.toObject(Recipe::class.java)
+                                    vector.add(r!!)
+                                    adapter.notifyDataSetChanged()
+                                }
+                            }
+
+                        }
+                    }
+                }
             }else if(b.getString("tags").equals("Search")){
                 title.text = "Search"
                 db.get().addOnSuccessListener {

@@ -14,7 +14,8 @@ class Recipe (
     var PrepTime : String? = "",
     var CookTime : String? = "",
     var CookingSteps : String? = "",
-    var Ingredients : Map<String,Ingredient>? = null
+    var Ingredients : Map<String,Ingredient>? = null,
+    var TotalLikes : Int? = 0
 ){
 
 }
