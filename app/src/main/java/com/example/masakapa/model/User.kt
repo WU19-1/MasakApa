@@ -10,7 +10,8 @@ data class User(
     var Email : String? = "",
     var DOB : String? = "",
     var CardNumber : String? = "",
-    var Status : String? = ""
+    var Status : String? = "",
+    var Image : String? = ""
 ){
 
 

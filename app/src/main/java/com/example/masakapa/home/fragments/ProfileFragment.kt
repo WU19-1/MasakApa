@@ -2,8 +2,10 @@ package com.example.masakapa.home.fragments
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +15,12 @@ import android.widget.LinearLayout
 import com.example.masakapa.R
 import com.example.masakapa.landing.LandingActivity
 import com.example.masakapa.model.User
+import com.example.masakapa.profile.EditProfile
+import com.example.masakapa.subscription.Subscription
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_recipe_detail.*
 import kotlinx.android.synthetic.main.fragment_profile.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -55,11 +61,30 @@ class ProfileFragment : Fragment() {
                 profile_name.text = user!!.FullName
                 profile_status.text = user!!.Status
                 profile_email.text = user!!.Email
+                profile_image.setImageBitmap(null)
+                if(!user!!.Image!!.isEmpty()){
+                    FirebaseStorage.getInstance().reference.child(user!!.Image!!).getBytes(8096*8096)
+                        .addOnSuccessListener {
+                            if(it.isNotEmpty()){
+                                var bitmap = BitmapFactory.decodeByteArray(it,0,it.size)
+                                profile_image.setImageBitmap(bitmap)
+                            }
+                        }
+                }
             }
         }else{
             profile_name.text = user!!.FullName
             profile_status.text = user!!.Status
             profile_email.text = user!!.Email
+            if(!user!!.Image!!.isEmpty()){
+                FirebaseStorage.getInstance().reference.child(user!!.Image!!).getBytes(8096*8096)
+                    .addOnSuccessListener {
+                        if(it.isNotEmpty()){
+                            var bitmap = BitmapFactory.decodeByteArray(it,0,it.size)
+                            profile_image.setImageBitmap(bitmap)
+                        }
+                    }
+            }
         }
     }
 
@@ -80,6 +105,15 @@ class ProfileFragment : Fragment() {
                 startActivity(Intent(activity,LandingActivity::class.java))
             }
         })
+
+        view.findViewById<LinearLayout>(R.id.profile_membership).setOnClickListener{
+            startActivity(Intent(activity,Subscription::class.java))
+        }
+
+        view.findViewById<LinearLayout>(R.id.profile_edit_profile).setOnClickListener{
+            startActivity(Intent(activity,EditProfile::class.java))
+        }
+
 
         return view
     }
