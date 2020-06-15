@@ -228,20 +228,19 @@
                 </LinearLayout>
 
                 <EditText
+                    android:id="@+id/create_step"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="step"
-                    android:lines="7"
-                    android:inputType="textCapSentences|textMultiLine"
-                    android:maxLength="1000"
-                    android:scrollHorizontally="false"
                     android:background="@android:color/white"
-                    android:id="@+id/create_step"
-                    android:padding="10dp"
-                    android:gravity="top"
-                    android:focusableInTouchMode="true"
                     android:focusable="true"
-                    />
+                    android:focusableInTouchMode="true"
+                    android:gravity="top"
+                    android:hint="step"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:lines="7"
+                    android:maxLength="1000"
+                    android:padding="10dp"
+                    android:scrollHorizontally="false" />
 
                 <Button
                     android:layout_width="match_parent"

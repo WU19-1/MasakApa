@@ -88,11 +88,11 @@ class DetailForum : AppCompatActivity() {
                         c.Created_At =
                             "${calendar.get(Calendar.DAY_OF_MONTH)}-${calendar.get(Calendar.MONTH)}-${calendar.get(Calendar.YEAR)},${calendar.get(Calendar.HOUR)}:${calendar.get(Calendar.MINUTE)}"
                         db.collection("comments").document(comment.id).set(hashMapOf(
-                            "UserID" to c.UserID,
-                            "CommentID" to comment.id,
-                            "Comment" to c.Comment,
-                            "Created_At" to c.Created_At,
-                            "ForumID" to c.ForumID
+                                "UserID" to c.UserID,
+                                "CommentID" to comment.id,
+                                "Comment" to c.Comment,
+                                "Created_At" to c.Created_At,
+                                "ForumID" to c.ForumID
                         ) as Map<String, Any>)
                     }
                 }

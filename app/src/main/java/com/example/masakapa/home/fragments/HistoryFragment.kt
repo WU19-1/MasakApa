@@ -141,7 +141,7 @@ class HistoryFragment : Fragment() {
                     FirebaseAuth.getInstance().currentUser!!.uid
                 ).get().addOnSuccessListener {
                     Log.e("masuk","true")
-                    var h = it.toObject(History::class.java)
+                    var h = it.toObject(History ::class.java)
                     Log.e(h.toString(),"exists")
                     for(i in h!!.history!!){
                         var r : Recipe? = null
